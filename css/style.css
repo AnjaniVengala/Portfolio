@@ -1,0 +1,734 @@
+/* css/style.css */
+
+/* --- 1. Global Reset & Variables --- */
+:root {
+    /* Define primary colors for a dark theme */
+    --primary-color: #00bcd4; /* Cyan/Teal for highlights (used for headings, borders) */
+    --secondary-color: #ff9800; /* Orange (used for secondary highlights, hover effects) */
+    --background-dark: #1f2937; /* Deep grayish-blue for main background */
+    --background-light: #2c3e50; /* Slightly lighter dark for cards/sections */
+    --text-light: #f3f4f6; /* Off-white for main text */
+    --text-muted: #9ca3af; /* Gray for subtle text/metadata */
+    --border-color: #374151; /* Dark border for separation */
+    --shadow-color: rgba(0, 0, 0, 0.4);
+
+    /* Typography */
+    --font-family-sans: 'Poppins', sans-serif;
+    
+    /* Specific color for the tech stack background, slightly darker than cards */
+    --tech-card-bg: #1c2231; /* Even darker shade to match the image's deep color */
+}
+
+/* Base style for dark mode (default for this design) */
+body {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    font-family: var(--font-family-sans);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    transition: background-color 0.5s ease;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* General Link Styling */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+}
+
+h1 { font-size: 3rem; }
+h2 { 
+    font-size: 2.5rem; 
+    color: var(--primary-color); 
+    border-bottom: 2px solid var(--border-color); 
+    padding-bottom: 0.25em; 
+    margin-bottom: 1.5rem;
+}
+h3 { font-size: 1.5rem; color: var(--text-light); }
+
+p {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+/* Utility Class */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* --- 2. Header and Navigation --- */
+header {
+    background-color: var(--background-dark);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    padding: 1rem 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.dark-mode-btn {
+    background: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    color: var(--text-light);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.dark-mode-btn:hover {
+    transform: rotate(10deg);
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+}
+
+/* Responsive adjustments for nav */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; 
+    }
+}
+
+/* --- 3. Hero Section (#home) --- */
+.hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 1.5rem;
+    background: linear-gradient(135deg, var(--background-dark) 0%, #171d28 100%);
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profile-img img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid var(--primary-color);
+    box-shadow: 0 0 25px var(--primary-color);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.profile-img img:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 0 35px var(--secondary-color);
+}
+
+.hero-content .text h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 0.1em;
+}
+
+.tagline {
+    font-size: clamp(1.2rem, 3vw, 1.75rem);
+    color: var(--secondary-color);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.intro {
+    font-size: 1.1rem;
+    max-width: 600px;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.hero-social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.social-icon-link i {
+    color: var(--text-light);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon-link i:hover {
+    color: var(--primary-color);
+    transform: translateY(-5px) scale(1.1);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.cta-btn {
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+    padding: 0.75rem 1.75rem;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cta-btn:hover {
+    background-color: var(--secondary-color);
+    color: var(--background-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+/* Hero responsive adjustments */
+@media (max-width: 992px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-img {
+        order: -1; 
+    }
+
+    .hero-social-links,
+    .hero-buttons {
+        justify-content: center;
+    }
+}
+
+/* --- 4. General Section Styling --- */
+section {
+    padding: 5rem 0;
+}
+
+#about {
+    background-color: var(--background-light);
+}
+
+#showcase {
+    background-color: var(--background-light);
+}
+
+#contact {
+    background-color: var(--background-dark);
+}
+
+.bio {
+    max-width: 800px;
+    margin-bottom: 3rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+}
+
+/* --- 5. About & Education --- */
+#about h3 {
+    color: var(--text-light);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.education-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.education-item {
+    background-color: var(--background-dark);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: transform 0.3s ease, border-left-color 0.3s ease;
+}
+
+.education-item:hover {
+    transform: translateY(-5px);
+    border-left-color: var(--secondary-color);
+}
+
+.education-item h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.education-item p {
+    margin: 0.25rem 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* --- 6. Experience Timeline --- */
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: var(--border-color);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    border: 3px solid var(--background-light);
+    transition: background 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+    background: var(--secondary-color);
+    box-shadow: 0 0 10px var(--secondary-color);
+}
+
+.experience-card {
+    width: calc(50% - 2rem); 
+    background-color: var(--background-dark);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.timeline-item:nth-child(odd) .experience-card {
+    float: left;
+    text-align: right;
+    border-right: 3px solid var(--primary-color);
+}
+
+.timeline-item:nth-child(even) .experience-card {
+    float: right;
+    text-align: left;
+    border-left: 3px solid var(--primary-color);
+}
+
+.experience-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--secondary-color);
+}
+
+.experience-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.experience-card .company {
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.timeline-item:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive adjustments for timeline */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 1.5rem;
+    }
+    
+    .timeline-dot {
+        left: 1.5rem;
+        transform: translateX(-50%);
+    }
+
+    .experience-card {
+        width: 100%;
+        float: none;
+        margin-left: 3rem;
+        text-align: left !important;
+        border-left: 3px solid var(--primary-color) !important;
+        border-right: none !important;
+    }
+    
+    .timeline-item:nth-child(odd) .experience-card,
+    .timeline-item:nth-child(even) .experience-card {
+        margin-left: 3rem;
+        text-align: left;
+        border-left: 3px solid var(--primary-color);
+        border-right: none;
+    }
+}
+
+/* --- 7. Showcase (Tabs, Projects, Certificates, Tech Stack) --- */
+.showcase-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    border: 2px solid var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.tab-button:hover {
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+}
+
+.tab-button.active {
+    background-color: var(--primary-color);
+    color: var(--background-dark);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+}
+
+.showcase-content {
+    display: none;
+    padding-top: 1rem;
+}
+
+.showcase-content.active {
+    display: block;
+}
+
+/* Projects Grid */
+.projects-grid,
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.project-card,
+.certificate-card {
+    background-color: var(--background-dark);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    border-top: 3px solid var(--secondary-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-top-color 0.3s ease;
+}
+
+.project-card:hover,
+.certificate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-color);
+    border-top-color: var(--primary-color);
+}
+
+.project-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+}
+
+.project-card h3,
+.certificate-card h3 {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.project-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.project-card strong {
+    color: var(--secondary-color);
+}
+
+.github-link,
+.view-cert-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* Certificate Specific Styling (Unchanged) */
+.certificate-card .cert-image-container {
+    width: 100%;
+    height: 150px; 
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+}
+.certificate-card .cert-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+.certificate-card:hover .cert-image-container img {
+    transform: scale(1.1);
+}
+
+.cert-description {
+    min-height: 4.5em; 
+}
+
+/* --- REVISED TECH STACK STYLING (Matching Image Example) --- */
+.tech-stack-grid {
+    /* Use flexbox to lay out items horizontally and allow wrapping */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between the cards */
+    justify-content: center; 
+    padding: 10px 0; /* Add slight padding around the block */
+}
+
+.tech-item {
+    /* Set dimensions for a square-like small card */
+    width: 100px; /* Fixed width */
+    height: 100px; /* Fixed height */
+    
+    /* Background and appearance to match the image */
+    background-color: var(--tech-card-bg); /* Use the specific darker background color */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center content horizontally */
+    
+    /* Flexbox for vertical centering and arrangement */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.tech-item:hover {
+    /* Optional subtle hover effect */
+    transform: translateY(-2px);
+    background-color: var(--background-light); 
+}
+
+.tech-item i {
+    /* Icon styling */
+    font-size: 2.5rem; /* Larger icon to fill the space */
+    color: var(--text-light); /* Icons are white/light gray in the example */
+    margin-bottom: 5px; /* Small gap between icon and text */
+}
+
+.tech-item p {
+    /* Text styling */
+    margin: 0;
+    font-weight: 400;
+    color: #c084fc; /* Purple/pink color for the text labels as seen in the image */
+    font-size: 0.7rem; /* Smaller, precise font size */
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; /* Handle overflow if text is too long */
+}
+/* --- END OF REVISED TECH STACK STYLING --- */
+
+
+/* --- 8. Contact Section --- */
+.contact-info {
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background-color: var(--background-light);
+    border-radius: 8px;
+    border-left: 5px solid var(--secondary-color);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-info p {
+    margin: 0.5rem 0;
+}
+
+.contact-info strong {
+    color: var(--primary-color);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--background-light);
+    color: var(--text-light);
+    font-family: var(--font-family-sans);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.contact-form button {
+    background-color: var(--secondary-color);
+    color: var(--background-dark);
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contact-form button:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* --- 9. Footer --- */
+footer {
+    background-color: var(--background-dark);
+    color: var(--text-muted);
+    text-align: center;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Optional: Dark Mode toggle for JavaScript */
+.light-mode {
+    --primary-color: #1a73e8; /* Blue */
+    --secondary-color: #d9534f; /* Red */
+    --background-dark: #f8f9fa; /* Light gray/white */
+    --background-light: #ffffff; /* White */
+    --text-light: #212529; /* Dark text */
+    --text-muted: #6c757d; /* Muted gray text */
+    --border-color: #dee2e6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .dark-mode-btn {
+    background-color: var(--background-light);
+    color: var(--text-light);
+}
+
+.light-mode .logo {
+    color: var(--primary-color);
+}
+
+.light-mode header {
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
