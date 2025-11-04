@@ -135,6 +135,17 @@ nav {
 .nav-links a.active::after {
     width: 100%;
 }
+.showcase-content {
+    display: none;
+}
+.showcase-content.active {
+    display: block;
+}
+.tab-button.active {
+    background: #0d6efd;
+    color: white;
+}
+
 
 .dark-mode-btn {
     background: var(--background-light);
