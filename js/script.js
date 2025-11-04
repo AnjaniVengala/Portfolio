@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const showcaseContents = document.querySelectorAll('.showcase-content');
 
     function initializeTabs() {
-        // Remove active from all
         showcaseContents.forEach(c => c.classList.remove('active'));
 
         const activeBtn = document.querySelector('.tab-button.active');
@@ -46,15 +45,47 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const targetId = button.dataset.target;
 
-            // Remove active from all
             tabButtons.forEach(btn => btn.classList.remove('active'));
             showcaseContents.forEach(content => content.classList.remove('active'));
 
-            // Add active to clicked tab + its content
             button.classList.add('active');
             const targetContent = document.getElementById(targetId);
             if (targetContent) targetContent.classList.add('active');
         });
     });
+
+    // --- 3. Contact Form EmailJS Integration ---
+
+    // ✅ Initialize EmailJS with your Public Key
+    emailjs.init("BlLgAXLEjsOlMiboF");
+
+    const contactForm = document.querySelector('.contact-form');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const serviceID = "service_bwngb8j";   // ✅ Your Service ID
+            const templateID = "template_1lwndut"; // ✅ Your Template ID
+
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            submitButton.textContent = "Sending...";
+            submitButton.disabled = true;
+
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    alert("✅ Message Sent Successfully!");
+                    contactForm.reset();
+                })
+                .catch((error) => {
+                    console.error("❌ EmailJS Error:", error);
+                    alert("❌ Failed to send message. Check console for details.");
+                })
+                .finally(() => {
+                    submitButton.textContent = "Send Message";
+                    submitButton.disabled = false;
+                });
+        });
+    }
 
 });
